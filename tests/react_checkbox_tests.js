@@ -17,18 +17,15 @@ describe('Checkbox tests', function () {
         await startPage.open()
         await startPage.SideMenu.goto("Checkbox")
     });
-    
-    // Next, we will write steps for our test. 
-    // For the element ID, you can find it by open the browser inspect feature.
-    it('Search on Google', async function () {
+        
+    it('Basic checkbox test', async function () {
         
         let cbPage = new ReactCheckboxPage(driver)
-
         firstCb = await cbPage.FirstCheckbox
 
         await firstCb.click()
         
-        let selected = await firstCb.isSelected()
+        let selected = await firstCb.checked
         assert.ok(selected)
     });
     
