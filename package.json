@@ -1,0 +1,19 @@
+{
+  "name": "selenium-js",
+  "version": "1.0.0",
+  "description": "selenium on js",
+  "main": "index.js",
+  "author": "alexart79",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "chromedriver": "^80.0.1",
+    "selenium-webdriver": "^4.0.0-alpha.5"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.0"
+  },
+  "scripts": {
+    "test": "mocha --recursive --timeout 10000 test.js"
+  }
+}

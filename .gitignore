@@ -1,0 +1,12 @@
+# ignore temporary folder (with generated allure results)
+**/tmp
+
+# ignore logs
+*.log
+
+
+#ignore .vscode
+.vscode/
+
+#ignore nodemodules
+node_modules/
