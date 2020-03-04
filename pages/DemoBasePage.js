@@ -1,17 +1,16 @@
-const { BasePage } = require("./BasePage");
-const { locators } = require('./locators');
-const { By, until } = require('selenium-webdriver');
+import { BasePage } from "./BasePage"
+import { locators } from './locators'
+import { browser, by, element, ExpectedConditions as EC } from 'protractor'
 
 
 class SideMenu {
-    constructor(driver, locator) {
-        this.driver = driver
+    constructor(locator) {        
         this.locator = locator
     }
 
     get_item(name) {        
-        let locator = By.xpath(`//a[text() = '${name}']`)
-        let element = this.driver.wait(until.elementLocated(locator), 30000);
+        let locator = by.xpath(`//a[text() = '${name}']`)
+        let element = browser.wait(EC.elementToBeClickable(locator), 30000);
         return element
     }
 
@@ -24,16 +23,15 @@ class SideMenu {
 }
 
 class DemoBasePage extends BasePage {
-    constructor(driver) {
-        super(driver);                
+    constructor() {        
     }
 
     get SideMenu() {
-        return new SideMenu(this.driver, locators.common_locators.sidebar_locator)
+        return new SideMenu(locators.common_locators.sidebar_locator)
     }
 
     get header() {
-        return this.driver.findElement(locators.demos_page.introduction)         
+        return element(locators.demos_page.introduction)
     }
 
 }

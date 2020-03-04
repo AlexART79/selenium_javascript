@@ -4,9 +4,5 @@
 # ignore logs
 *.log
 
-
-#ignore .vscode
-.vscode/
-
 #ignore nodemodules
 node_modules/

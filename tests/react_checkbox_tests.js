@@ -1,22 +1,15 @@
-require('chromedriver');
-const expect = require('expect')
-const { Browser, Builder, Key, By, until } = require('selenium-webdriver');
 const { ReactCheckboxPage } = require("../pages/ReactCheckboxPage");
 const { ReactDemosPage } = require("../pages/ReactDemosPage");
 
 
 describe('Checkbox tests', function () {
-
-    let driver;    
-
     // init browser
-    beforeEach(async function () {
-        driver = await new Builder().forBrowser(Browser.FIREFOX).build();            
-        await driver.manage().window().maximize();    
+    beforeEach(async function () {        
+        browser.maximize();    
 
         startPage = new ReactDemosPage(driver);            
-        await startPage.open();
-        await startPage.SideMenu.goto("Checkbox");
+        startPage.open();
+        startPage.SideMenu.goto("Checkbox");
     });
         
     // check basic checkbox

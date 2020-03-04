@@ -1,14 +1,15 @@
+import { browser } from 'protractor'
+
 class BasePage {
-    constructor(driver) {
-        this.driver = driver;        
+    constructor() {        
     }
     
     get title() {        
-        return this.driver.getTitle()        
+        return browser.getTitle()        
     }
 
     goto(url) {
-        return this.driver.get(url);
+        return browser.get(url);
     }    
 }
 

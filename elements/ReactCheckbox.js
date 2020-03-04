@@ -1,13 +1,12 @@
-const { By, until } = require('selenium-webdriver');
+import { browser, by, element, ExpectedConditions as EC } from 'protractor'
 
 class ReactCheckbox {
-    constructor(driver, locator) {
-        this.driver = driver
+    constructor(locator) {
         this.locator = locator
     }
 
     get element() {             
-        return this.driver.wait(until.elementLocated(this.locator), 30000); // WebElementPromise
+        return browser.wait(EC.presenceOf(this.locator), 30000);
     }
 
     get checked() {        
