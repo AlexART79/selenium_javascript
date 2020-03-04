@@ -6,23 +6,21 @@ class ReactCheckbox {
         this.locator = locator
     }
 
-    get element() {
-        return this.driver.wait(until.elementLocated(this.locator), 30000);
+    get element() {             
+        return this.driver.wait(until.elementLocated(this.locator), 30000); // WebElementPromise
     }
 
-    get checked() {
-        let cb_locator = By.xpath('..//input')
-        let val = this.element.findElement(cb_locator).isSelected()
-
-        return val
+    get checked() {        
+        let cb_locator = By.xpath('..//input');
+        return this.element.findElement(cb_locator).isSelected();                            
     }
 
-    set checked(val) {
-        if (this.checked && !val || val && !this.checked)
-            return this.click()
+    get label() {
+        let label_locator = By.xpath(this.locator.value + '/../following-sibling::label')            
+        return this.element.findElement(label_locator).getText();                
     }
 
-    click() {
+    click() {                
         return this.element.click()
     }
 }

@@ -8,6 +8,7 @@
   "private": false,
   "dependencies": {
     "chromedriver": "^80.0.1",
+    "expect": "^25.1.0",
     "selenium-webdriver": "^4.0.0-alpha.5"
   },
   "devDependencies": {

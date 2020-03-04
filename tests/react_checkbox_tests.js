@@ -1,34 +1,57 @@
 require('chromedriver');
-const assert = require('assert');
-const { Builder, Key, By, until } = require('selenium-webdriver');
+const expect = require('expect')
+const { Browser, Builder, Key, By, until } = require('selenium-webdriver');
 const { ReactCheckboxPage } = require("../pages/ReactCheckboxPage");
 const { ReactDemosPage } = require("../pages/ReactDemosPage");
-const { locators } = require('../pages/locators');
 
 
 describe('Checkbox tests', function () {
-    
-    let driver;    
-    
-    before(async function () {
-        driver = await new Builder().forBrowser('chrome').build();
-        startPage = new ReactDemosPage(driver)
-        
-        await startPage.open()
-        await startPage.SideMenu.goto("Checkbox")
-    });
-        
-    it('Basic checkbox test', async function () {
-        
-        let cbPage = new ReactCheckboxPage(driver)
-        firstCb = await cbPage.FirstCheckbox
 
-        await firstCb.click()
+    let driver;    
+
+    // init browser
+    beforeEach(async function () {
+        driver = await new Builder().forBrowser(Browser.FIREFOX).build();            
+        await driver.manage().window().maximize();    
+
+        startPage = new ReactDemosPage(driver);            
+        await startPage.open();
+        await startPage.SideMenu.goto("Checkbox");
+    });
         
-        let selected = await firstCb.checked
-        assert.ok(selected)
+    // check basic checkbox
+    it(`Basic checkbox test`, async function () {        
+        
+        let cbPage = new ReactCheckboxPage(driver);
+        let checkBox = cbPage.FirstCheckbox;
+        
+        expect(await checkBox.checked).toBe(false);
+
+        await checkBox.click();
+        
+        expect(await checkBox.checked).toBe(true);
     });
     
-    // close the browser after running tests
-    after(() => driver && driver.quit());
+    // check andanced checkbox
+    it(`Advanced checkbox test`, async function () {        
+        let cbPage = new ReactCheckboxPage(driver);
+        let checkBox = cbPage.SecondCheckbox;
+        
+        expect(await checkBox.checked).toBe(false);
+            
+        expect(await checkBox.label).toEqual('New York')
+        
+        if (!await checkBox.checked)
+            await checkBox.click();
+        
+        expect(await checkBox.checked).toBe(true);
+
+        if (await checkBox.checked)
+            await checkBox.click();
+        
+        expect(await checkBox.checked).toBe(false);
+    });
+    
+    afterEach(() => driver && driver.quit());
+
 })
