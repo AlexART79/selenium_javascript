@@ -1,6 +1,6 @@
-import { DemoBasePage } from "./DemoBasePage"
-import { locators } from './locators'
-import { ReactCheckbox } from '../elements/ReactCheckbox'
+const { DemoBasePage } = require("./DemoBasePage");
+const { locators } = require('./locators');
+const { ReactCheckbox } = require('../elements/ReactCheckbox');
 
 
 class ReactCheckboxPage extends DemoBasePage {

@@ -10,7 +10,7 @@
             "name": "Protractor Tests",
             "program": "${workspaceRoot}/node_modules/protractor/bin/protractor",
             "args": [
-                "${workspaceRoot}/JSFilesLocation/conf.js"
+                "${workspaceRoot}/conf.js"
             ]
         },
         {

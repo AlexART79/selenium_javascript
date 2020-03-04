@@ -1,4 +1,4 @@
-import { browser } from 'protractor'
+const { browser } = require('protractor');
 
 class BasePage {
     constructor() {        
@@ -9,7 +9,7 @@ class BasePage {
     }
 
     goto(url) {
-        return browser.get(url);
+        browser.get(url);
     }    
 }
 

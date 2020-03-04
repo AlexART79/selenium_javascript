@@ -1,6 +1,6 @@
-import { BasePage } from "./BasePage"
-import { locators } from './locators'
-import { browser, by, element, ExpectedConditions as EC } from 'protractor'
+const { BasePage } = require("./BasePage");
+const { locators } = require('./locators');
+const { browser, by, element, ExpectedConditions } = require('protractor');
 
 
 class SideMenu {
@@ -10,7 +10,7 @@ class SideMenu {
 
     get_item(name) {        
         let locator = by.xpath(`//a[text() = '${name}']`)
-        let element = browser.wait(EC.elementToBeClickable(locator), 30000);
+        let element = browser.wait(ExpectedConditions.elementToBeClickable(locator), 30000);
         return element
     }
 
@@ -23,7 +23,8 @@ class SideMenu {
 }
 
 class DemoBasePage extends BasePage {
-    constructor() {        
+    constructor() {    
+        super()    
     }
 
     get SideMenu() {
@@ -37,4 +38,3 @@ class DemoBasePage extends BasePage {
 }
 
 exports.DemoBasePage = DemoBasePage;
-exports.SideMenu = SideMenu;

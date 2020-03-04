@@ -1,4 +1,4 @@
-import { browser, by, element, ExpectedConditions as EC } from 'protractor'
+const { browser, by, ExpectedConditions } = require('protractor')
 
 class ReactCheckbox {
     constructor(locator) {
@@ -6,16 +6,16 @@ class ReactCheckbox {
     }
 
     get element() {             
-        return browser.wait(EC.presenceOf(this.locator), 30000);
+        return browser.wait(ExpectedConditions.presenceOf(this.locator), 30000);
     }
 
     get checked() {        
-        let cb_locator = By.xpath('..//input');
+        let cb_locator = by.xpath('..//input');
         return this.element.findElement(cb_locator).isSelected();                            
     }
 
     get label() {
-        let label_locator = By.xpath(this.locator.value + '/../following-sibling::label')            
+        let label_locator = by.xpath(this.locator.value + '/../following-sibling::label')            
         return this.element.findElement(label_locator).getText();                
     }
 

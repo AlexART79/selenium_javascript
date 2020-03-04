@@ -1,14 +1,13 @@
-import { DemoBasePage } from "./DemoBasePage"
-
-// const { DemoBasePage } = require("./DemoBasePage");
+const { DemoBasePage } = require("./DemoBasePage");
 
 class ReactDemosPage extends DemoBasePage {
     constructor() {
+        super();
         this.url = 'https://www.primefaces.org/primereact/#/';
     }
 
     open() {
-        return this.goto(this.url);
+        this.goto(this.url);
     }
 }
 
