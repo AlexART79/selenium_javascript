@@ -1,15 +1,16 @@
+const { browser } = require('protractor');
+
 class BasePage {
-    constructor(driver) {
-        this.driver = driver;        
+    constructor() {
     }
-    
-    get title() {        
-        return this.driver.getTitle()        
+
+    get title() {
+        return browser.getTitle();
     }
 
     goto(url) {
-        return this.driver.get(url);
-    }    
+        return browser.get(url);
+    }
 }
 
 exports.BasePage = BasePage;

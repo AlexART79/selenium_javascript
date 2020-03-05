@@ -8,9 +8,14 @@
   "private": false,
   "dependencies": {
     "chromedriver": "^80.0.1",
-    "selenium-webdriver": "^4.0.0-alpha.5"
+    "expect": "^25.1.0",
+    "jasmine": "^3.5.0",
+    "protractor": "^5.4.3",
+    "selenium-webdriver": "^4.0.0-alpha.5",
+    "webdriver-manager": "^12.1.7"
   },
   "devDependencies": {
+    "@types/jasmine": "^3.5.7",
     "mocha": "^7.1.0"
   },
   "scripts": {
