@@ -7,7 +7,7 @@ class ReactDemosPage extends DemoBasePage {
     }
 
     open() {
-        this.goto(this.url);
+        return this.goto(this.url);
     }
 }
 

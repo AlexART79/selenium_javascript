@@ -10,31 +10,40 @@ class SideMenu {
 
     get_item(name) {        
         let locator = by.xpath(`//a[text() = '${name}']`)
-        let element = browser.wait(ExpectedConditions.elementToBeClickable(locator), 30000);
-        return element
+        return browser.wait(ExpectedConditions.elementToBeClickable(element(locator)), 30000).then(clickable => {
+            if (clickable) {                
+                return element(locator)
+            }
+            else {
+                return null;
+            }
+        });        
     }
 
-    goto (name) {
-        let item = this.get_item(name)
-        if (item && item.isDisplayed() && item.isEnabled()) {
-            return item.click()
-        }
+    goto (name) {        
+        return this.get_item(name).then(e => {            
+            if (e && e.isDisplayed() && e.isEnabled()) {
+                return e.click();
+            }
+        });        
     }
 }
 
 class DemoBasePage extends BasePage {
-    constructor() {    
-        super()    
+    constructor() {
+        super();
+
+        this._sideMenu = new SideMenu(locators.common_locators.sidebar_locator);
+        this._pageHeader = element(locators.demos_page.introduction);
     }
 
     get SideMenu() {
-        return new SideMenu(locators.common_locators.sidebar_locator)
+        return this._sideMenu;
     }
 
     get header() {
-        return element(locators.demos_page.introduction)
+        return this._pageHeader;
     }
-
 }
 
 exports.DemoBasePage = DemoBasePage;

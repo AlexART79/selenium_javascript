@@ -1,16 +1,16 @@
 const { browser } = require('protractor');
 
 class BasePage {
-    constructor() {        
+    constructor() {
     }
-    
-    get title() {        
-        return browser.getTitle()        
+
+    get title() {
+        return browser.getTitle();
     }
 
     goto(url) {
-        browser.get(url);
-    }    
+        return browser.get(url);
+    }
 }
 
 exports.BasePage = BasePage;
