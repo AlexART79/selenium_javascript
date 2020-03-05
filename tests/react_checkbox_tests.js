@@ -49,6 +49,6 @@ describe('Checkbox tests', function () {
         expect(checkBox.checked).toBe(false);
     });
 
-    afterAll(() => browser.quit());
+    //afterAll(() => browser.close());
 
 })

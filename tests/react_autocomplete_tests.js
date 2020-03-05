@@ -56,5 +56,5 @@ describe('Autocomplete tests', function () {
         expect(ac.value).toBe('Audi');      
     });
 
-    afterAll(() => browser.quit());
+    //afterAll(() => browser.close());
 })
