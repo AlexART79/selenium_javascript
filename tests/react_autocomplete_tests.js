@@ -1,7 +1,6 @@
 const { ReactAutocompletePage } = require("../pages/ReactAutocompletePage");
 const { ReactDemosPage } = require("../pages/ReactDemosPage");
-const { browser, by, element, ExpectedConditions } = require('protractor');
-
+const { browser } = require('protractor');
 
 
 describe('Autocomplete tests', function () {
@@ -22,39 +21,78 @@ describe('Autocomplete tests', function () {
  
     // check basic ac
     it(`Basic autocomplete test`, async function () {
+        allure.feature('Autocomplete');
+        allure.story('Basic');
+
         let acPage = new ReactAutocompletePage();
         let ac = acPage.BasicAutocomplete;
 
-        expect(ac.isVisible).toBe(true);
-        expect(ac.isCollapsed).toBe(true);        
-
-        ac.value = 'Uni';
-        expect(ac.isExpanded).toBe(true);        
-
-        ac.select('United States');
-        expect(ac.isCollapsed).toBe(true);        
-        expect(ac.value).toBe('United States');
+        allure.createStep('Check initial state', function(){
+            expect(ac.isVisible).toBe(true);
+            expect(ac.isCollapsed).toBe(true);        
+        })();
+        
+        allure.createStep('Type test', function(){
+            ac.value = 'Uni';
+            expect(ac.isExpanded).toBe(true);        
+        })();
+        
+        allure.createStep('Select value', function(){
+            ac.select('United States');
+        })();
+        
+        allure.createStep('Check changed state', function(){
+            expect(ac.isCollapsed).toBe(true);        
+            expect(ac.value).toBe('United States');
+        })();
     });
 
     // check andanced ac
-    it(`Advanced autocomplete test`, async function () {                
+    it(`Advanced autocomplete test`, function () {         
+        allure.feature('Autocomplete');
+        allure.story('Advanced');
+       
         let acPage = new ReactAutocompletePage();
         let ac = acPage.AdvancedAutocomplete;
 
-        expect(ac.isVisible).toBe(true);
+        allure.createStep('Check initial state', function(){
+            expect(ac.isVisible).toBe(true);
+        });        
         
-        ac.expand();
-        expect(ac.isExpanded).toBe(true);        
+        allure.createStep('Expand autocomplete', function(){
+            ac.expand();
+        });        
 
-        ac.collapse()
-        expect(ac.isCollapsed).toBe(true);      
+        allure.createStep('Check is it expanded', function(){
+            expect(ac.isExpanded).toBe(true);        
+        });        
+
+        allure.createStep('Collapse autocomplete', function(){
+            ac.collapse();
+        });        
+
+        allure.createStep('Check is it collapsed', function(){
+            expect(ac.isCollapsed).toBe(true);      
+        });        
         
-        ac.expand();
-        ac.select('Audi');
-        
-        expect(ac.isCollapsed).toBe(true);      
-        expect(ac.value).toBe('Audi');      
+        allure.createStep('Expand autocomplete again', function(){
+            ac.expand();
+        });        
+
+        let expValue = 'Audi'
+        allure.createStep(`Select value '${expValue}'`, function(){
+            ac.select(expValue);
+        });        
+
+        allure.createStep('Check autocomplete state and value', function(){
+            expect(ac.isCollapsed).toBe(true);      
+            expect(ac.value).toBe('Audi');      
+        });        
     });
 
-    //afterAll(() => browser.close());
+    afterEach(() => {
+        browser.takeScreenshot().then(function (png) {
+            allure.createAttachment('Final app state', function () {return Buffer.from(png, 'base64')}, 'image/png')();
+        });
+    });
 })

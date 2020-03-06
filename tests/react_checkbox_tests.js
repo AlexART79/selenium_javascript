@@ -1,6 +1,6 @@
 const { ReactCheckboxPage } = require("../pages/ReactCheckboxPage");
 const { ReactDemosPage } = require("../pages/ReactDemosPage");
-const { browser, by, element, ExpectedConditions } = require('protractor');
+const { browser } = require('protractor');
 
 
 describe('Checkbox tests', function () {
@@ -21,34 +21,63 @@ describe('Checkbox tests', function () {
  
     // check basic checkbox
     it(`Basic checkbox test`, function () {
+        allure.feature('Checkbox');
+        allure.story('Basic');
+
         let cbPage = new ReactCheckboxPage();
         let checkBox = cbPage.FirstCheckbox;
 
-        expect(checkBox.checked).toBe(false);
+        allure.createStep('Check initial checkbox state', function(){
+            expect(checkBox.checked).toBe(false);
+        });        
 
-        checkBox.click();
+        allure.createStep('Toggle checkbox by mouse click', function(){
+            checkBox.click();
+        });        
 
-        expect(checkBox.checked).toBe(true);
+        allure.createStep('Check is it\'s state changed', function(){
+            expect(checkBox.checked).toBe(true);
+        });        
     });
 
     // check andanced checkbox
-    it(`Advanced checkbox test`, function () {        
+    it(`Advanced checkbox test`, function () {   
+        allure.feature('Checkbox');
+        allure.story('Advanced');
+
         let cbPage = new ReactCheckboxPage();
         let checkBox = cbPage.SecondCheckbox;
         
-        expect(checkBox.isVisible).toBe(true);            
-        expect(checkBox.isEnabled).toBe(true);            
+        allure.createStep('Check initial checkbox state', function(){
+            expect(checkBox.isVisible).toBe(true);            
+            expect(checkBox.isEnabled).toBe(true);            
+            expect(checkBox.checked).toBe(false);  
+        });                  
 
-        expect(checkBox.checked).toBe(false);            
-        expect(checkBox.label).toEqual('New York')
+        allure.createStep('Check checkbox label', function(){
+            expect(checkBox.label).toEqual('New York')
+        });        
         
-        checkBox.checked = true;        
-        expect(checkBox.checked).toBe(true);
+        allure.createStep('Set checkbox state to "true"', function(){
+            checkBox.checked = true;        
+        });        
 
-        checkBox.checked = false;        
-        expect(checkBox.checked).toBe(false);
+        allure.createStep('Check checkbox state', function(){
+            expect(checkBox.checked).toBe(true);
+        });        
+
+        allure.createStep('Set checkbox state to "false"', function(){
+            checkBox.checked = false;        
+        });
+        
+        allure.createStep('Check checkbox state', function(){
+            expect(checkBox.checked).toBe(false);
+        });        
     });
 
-    //afterAll(() => browser.close());
-
+    afterEach(() => {
+        browser.takeScreenshot().then(function (png) {
+            allure.createAttachment('Final app state', function () {return Buffer.from(png, 'base64')}, 'image/png')();
+        });
+    });
 })

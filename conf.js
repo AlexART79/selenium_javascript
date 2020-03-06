@@ -12,6 +12,11 @@ exports.config = {
       // }],
 
     onPrepare: function() {
-      browser.ignoreSynchronization = true; // - to test non-protractor pages
-    },    
+      // to test non-protractor pages
+      browser.ignoreSynchronization = true;
+
+      // allure reporter
+      let AllureReporter = require('jasmine-allure-reporter');
+      jasmine.getEnv().addReporter(new AllureReporter({ resultsDir: 'allure-results' }));  
+    },
   }

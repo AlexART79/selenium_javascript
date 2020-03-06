@@ -6,3 +6,6 @@
 
 #ignore nodemodules
 node_modules/
+
+# ignore report folder
+allure-results/

@@ -2,16 +2,11 @@ const { Element } = require("./Element");
 const { Key, browser, by, ExpectedConditions } = require('protractor')
 
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
 class ReactAutocomplete extends Element {
     constructor(locator) {
         super(locator);  
         
-        this.list_locator = by.xpath(this.locator.value + "/descendant-or-self::ul[contains(@class, 'p-autocomplete-list')]");                
+        this.list_locator = by.xpath(this.locator.value + "/descendant-or-self::ul[contains(@class, 'p-autocomplete-list')]");                     
     }
    
     get _input() {
@@ -82,7 +77,7 @@ class ReactAutocomplete extends Element {
         return this._dropdown.then((dd) => {
             return dd.click().then(() => {
                 return (async () => {
-                        await sleep(1000)
+                        await browser.sleep(1000)
                     })().then(() => {
                         return dd.click();
                     });
@@ -95,7 +90,7 @@ class ReactAutocomplete extends Element {
             return e.sendKeys(Key.ESCAPE).then(
                 () => {
                     return (async () => {
-                        await sleep(3000)
+                        await browser.sleep(500)                        
                     })();
                 }
             );
@@ -104,27 +99,15 @@ class ReactAutocomplete extends Element {
 
     select(val) {
         let item_locator = by.xpath(`${this.list_locator.value}/li[. = '${val}']`);
-
         return browser.wait(ExpectedConditions.presenceOf(element(item_locator)), 10000).then(
-            (val) => {
-                if (val) {                    
-                    return element(item_locator).click();
-                }
-                else {
-                    return null;
-                }
-            }
-        );
-
-        // return this._list.then(lst => {
-        //     return lst.element(item_locator).then(item => {
-        //         console.log(item);
-        //         // return item.click().then(
-        //         //     () => true
-        //         // );
-        //     });
-        // }, (err) => console.log(err));
+            (isPresent) => {
+                if (isPresent)
+                    return element(item_locator).click();                
+                else 
+                    return null;                
+            });
     }
 }
+
 
 exports.ReactAutocomplete = ReactAutocomplete
